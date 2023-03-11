@@ -1,14 +1,15 @@
-import { bookQueryLib } from "../../../lib/bookQueryLib";
-
+import {bookQueryLib} from '../../../../lib/queryLib'
 
 export default async function getBooks(req,res) {
-    const request = await JSON.parse(req.body);
+    //const request = await JSON.parse(req.body);
+    const id = req.query.id;
     // console.log("request is ", request);
+    console.log(id);
     try{
         
         let query = "SELECT * FROM testvalues where id = ?";
        
-            let values = [request.id];
+            let values = [id];
             console.log("called");
             const results = await bookQueryLib(query,values);
             
@@ -18,6 +19,6 @@ export default async function getBooks(req,res) {
         
     }catch(err){
         console.log(err);
-        // res.status(500).json(err);
+        res.status(500).json(err);
     }
   }

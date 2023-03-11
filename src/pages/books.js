@@ -4,7 +4,7 @@ export default function Books(){
     const [booksData,setBooksData] = useState([]);
     useEffect(()=>{
         async function getAllBooks(){
-            const apiUrlEndpoint = "http://localhost:3000/api/get-books";
+            const apiUrlEndpoint = "/api/get-book/overall";
             const response = await fetch(apiUrlEndpoint);
             const res = await response.json();
             // d
