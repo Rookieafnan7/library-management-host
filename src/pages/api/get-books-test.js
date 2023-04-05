@@ -1,4 +1,4 @@
-import { bookQueryLib } from "../../../lib/queryLib";
+import { bookQueryLib } from "../../../lib/bookQueryLib";
 
 
 export default async function getBooks(req,res) {

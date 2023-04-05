@@ -1,4 +1,4 @@
-import {bookQueryLib} from '../../../../lib/queryLib'
+import {bookQueryLib} from '../../../../lib/bookQueryLib'
 
 export default async function getBooks(req,res) {
     //const request = await JSON.parse(req.body);
@@ -7,7 +7,7 @@ export default async function getBooks(req,res) {
     console.log(id);
     try{
         
-        let query = "SELECT * FROM testvalues where id = ?";
+        let query = "SELECT * FROM book where book_id = ?";
        
             let values = [id];
             console.log("called");

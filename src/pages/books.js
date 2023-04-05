@@ -2,10 +2,17 @@ import { useEffect,useState } from "react";
 
 export default function Books(){
     const [booksData,setBooksData] = useState([]);
+    const [filters,setFilters] = useState({});
     useEffect(()=>{
         async function getAllBooks(){
             const apiUrlEndpoint = "/api/get-book/overall";
-            const response = await fetch(apiUrlEndpoint);
+            const response = await fetch(apiUrlEndpoint,{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify(filters)
+            });
             const res = await response.json();
             // d
             console.log(res.values);
@@ -17,6 +24,7 @@ export default function Books(){
         }
         getAllBooks();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     return(

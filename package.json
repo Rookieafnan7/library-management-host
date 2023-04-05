@@ -9,16 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/material": "^5.11.15",
+    "@mui/styled-engine-sc": "^5.11.11",
+    "bcrypt": "^5.1.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
+    "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.2.0",
     "next": "13.2.3",
+    "next-auth": "^4.21.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "styled-components": "^5.3.9"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "next.config.js",
-  "devDependencies": {},
   "author": "",
   "license": "ISC"
 }

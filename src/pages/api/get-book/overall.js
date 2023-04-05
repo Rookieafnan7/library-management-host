@@ -1,13 +1,14 @@
-import { bookQueryLib } from "../../../../lib/queryLib";
+import { bookQueryLib } from "../../../../lib/bookQueryLib";
 
 
 export default async function getBooks(req,res) {
-    
+    const filters = req.body;
+    //console.log(filters);
     try{
-        let query = "SELECT * FROM testvalues";
+        let query = "SELECT * FROM book";
         let values = [];
         // console.log("called");
-        const results = await bookQueryLib(query,values);
+        const results = await bookQueryLib(query,values,filters);
         // console.log(called);
         res.status(200).json({values : results});
         
