@@ -6,7 +6,7 @@ export default async function getBooks(req,res) {
     // console.log("request is ", request);
     try{
         
-        let query = "SELECT * FROM testvalues where id = ?";
+            let query = "SELECT * FROM testvalues where id = ?";
        
             let values = [request.id];
             console.log("called");

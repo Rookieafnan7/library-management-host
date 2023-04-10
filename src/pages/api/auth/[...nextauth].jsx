@@ -1,4 +1,5 @@
 import NextAuth from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -21,21 +22,52 @@ export const authOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        const res = await fetch("/api/acc-check", {
+
+        //needs change
+        const res = await fetch("http://localhost:3000/api/acc-check", {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }
         })
         const user = await res.json()
-  
+        // console.log(user.user);
         // If no error and we have user data, return it
-        if (res.ok && user) {
-          return user
+        if (res.ok && user.user) {
+          return user.user
         }
         // Return null if user data could not be retrieved
         return null
       }
     })
   ],
+  session:{
+    strategy:"jwt",
+    maxAge:3000
+  },
+  pages:{
+    signIn:"/login"
+  },
+  secret:"fuNnZV2bKf61ny811iW12AajWOFNOdPw",
+  callbacks: {
+    async jwt({ token, user }) {
+      // Persist the OAuth access_token to the token right after signin
+      // if (account) {
+      //   token.accessToken = account.access_token
+      // }
+      // console.log("token",token)
+      
+      // console.log("user",user)
+      return ({...token,...user})
+    },
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token from a provider.
+      // console.log("session",session);
+      session.user = token;
+      // console.log("session",session);
+      return session;
+    },
+    
+  }
+
 }
 export default NextAuth(authOptions)

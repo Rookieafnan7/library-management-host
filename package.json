@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mui/material": "^5.11.15",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.16",
     "@mui/styled-engine-sc": "^5.11.11",
     "bcrypt": "^5.1.0",
     "eslint": "8.35.0",
@@ -20,6 +22,7 @@
     "next-auth": "^4.21.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-table": "^7.8.0",
     "styled-components": "^5.3.9"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
