@@ -7,6 +7,7 @@ import BasicTable from './BasicTable';
 import SidebarButton from './SidebarButton';
 import { useState } from "react"
 import BookTable from "./BookTable";
+import { Button } from '@mui/material';
 
 export default function Sidebar(props) {
   // console.log(props);
@@ -14,6 +15,7 @@ export default function Sidebar(props) {
    const [toggleClassName,setToggleClassName] = useState(`${styles.toggle}`);
    const [mainClassName,setMainClassName] = useState(`${styles.main}`);
    const [profileDisplay,setProfileDisplay] = useState({display:false,style:{display:'none',textAlign:'center'}});
+   const [searchInput,setSearchInput] = useState("");
     async function toggle(){
         
         setToggleStatus((prev)=>{return !prev});
@@ -79,8 +81,16 @@ export default function Sidebar(props) {
         <div className={styles.search}>
           <label>
             <img src="pics/11.png" alt="search" />
-            <input type="text" placeholder="Search here" />
+            <input type="text" placeholder="Search here" onKeyDown={(event)=>{
+              if(event.key === 'Enter'){
+                props.searchHandler(searchInput);
+              }
+            }} value = {searchInput} onChange={(e)=>{
+              setSearchInput(e.target.value);
+            }}/>
+            
           </label>
+          {/* <Button onClick={props.searchHandler}/> */}
         </div>
         <div className={styles.user}>
         <img  src="pics/13.png" alt="user" onClick={()=>{
@@ -100,9 +110,10 @@ export default function Sidebar(props) {
         <div id="myDIV" style={profileDisplay.style}>
           <a className={styles.signout} onClick={async()=>{
             await signOut()
-          }}> Sign Out</a>
+          }} style={{cursor:"pointer"}}> Sign Out</a>
         </div>
       </div>
+      <h1 className={styles.pagetitle}>{props.title}</h1>
       <div className={styles.tables}>
       
       {props.DATA && props.type==="books"?<BookTable DATA={props.DATA}/>:null}

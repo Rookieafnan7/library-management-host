@@ -112,6 +112,13 @@
     white-space: nowrap;
   }
 
+.pagetitle{
+  
+  margin-left:5%;
+  margin-top:2%;
+  /* color:yellow; */
+}
+  
   .navigation ul li:hover a::before,
 .navigation ul li.hovered a::before {
   content: "";

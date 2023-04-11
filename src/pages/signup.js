@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react'
 import Image from 'next/image'
-import styles from '../src/styles/App.module.css'
+import styles from '../styles/App.module.css'
+import ErrorAlert from '../../components/ErrorAlert';
 export default function Sign() {
+    const [errorFlagStatus,setErrorFlagStatus] = useState(false);
     const [username,setUsername] = useState('');
 	const [password,setPassword] = useState('');
     const [email,setEmail] = useState('')
@@ -10,6 +12,7 @@ export default function Sign() {
     const [name,setName] = useState('')
     async function handleClick(e){
         e.preventDefault();
+        // console.log("clicked");
         const data = {
             username:username,
             password:password,
@@ -18,21 +21,31 @@ export default function Sign() {
             name:name
         }
         const apiUrlEndpoint = "/api/acc-insert"
-        const results = await fetch(apiUrlEndpoint,{
+        try{
+         const err = await fetch(apiUrlEndpoint,{
             method:'POST',
             headers:{
                 "Content-type":"application/json"
             },
             body:JSON.stringify(data)
-
         })
+        if(err){
+            throw Error("Something went wrong!");
+        }
+        }catch(err){
+            // console.log(err,"signup");
+            setErrorFlagStatus(true);
+            console.log(errorFlagStatus);
+        }
+        // console.log(results);
     }
   return (
     <div className='App'>
         <section>
+            {errorFlagStatus?<ErrorAlert/>:null}
             <div className={styles.signup}>
                 <div className={`${styles.sect1}`}>
-                    <h2>{`${props.status}`}</h2>
+                    <h2>Sign Up</h2>
                     <span>Join and experience the wonder of reading!</span>
                     <form id='form' className={`${styles.flex} ${styles.flexcol}`} >
                     <div className={styles.fields}>
@@ -50,7 +63,7 @@ export default function Sign() {
                             }}></input>
                         </div>
                         
-                        <div className='fields'>
+                        <div className={styles.fields}>
                         <input type ='text' placeholder='Email' name='email' value={email} onChange={(e)=>{
                                 setEmail(e.target.value)
                             }}></input>
@@ -58,7 +71,7 @@ export default function Sign() {
                                 setPhone_number(e.target.value)
                             }}></input>
                             </div>
-                        <button className={styles.btn} onClick={handleClick}>Proceed</button>
+                        <button className={styles.btn} onClick={handleClick} style={{cursor:'pointer'}}>Proceed</button>
                     </form>
                 </div>
                 <div className={styles.sect2}>

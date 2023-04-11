@@ -14,6 +14,25 @@ export default function Books(){
     const [filters,setFilters] = useState({});
     const [status,setStatus] = useState(false);
     
+    async function getBooksFromName(input = "res"){
+        const filter = {
+            values:input,
+            name:"true"
+        }
+        const apiUrlEndpoint = "/api/get-book-from-name"
+        const response = await fetch(apiUrlEndpoint,{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(filter)
+        })
+        const res = await response.json();
+        // await setBooksData(res);
+        console.log(res.values)
+        setBooksData(res.values);
+    }
+    
     useEffect(()=>{
         async function checkSession(){
             const sess = await getSession();
@@ -50,7 +69,7 @@ export default function Books(){
     },[]);
     
         if(status){
-            return <Sidebar DATA={booksData} type="books"/>
+            return <Sidebar title="Books" DATA={booksData} type="books" searchHandler={getBooksFromName}/>
         }else{
             return null;
         }

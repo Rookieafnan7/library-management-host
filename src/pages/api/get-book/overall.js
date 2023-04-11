@@ -5,6 +5,7 @@ export default async function getBooks(req,res) {
     const filters = req.body;
     //console.log(filters);
     try{
+        
         let query = "SELECT * FROM book";
         let values = [];
         // console.log("called");
