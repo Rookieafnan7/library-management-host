@@ -22,9 +22,9 @@ export const authOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        if(credentials.username==="Icarus"&&credentials.password==="admin"){
-          return ({username:credentials.username, password:credentials.password,isAdmin:'true'})
-        }
+        // if(credentials.username==="Icarus"&&credentials.password==="admin"){
+        //   return ({username:credentials.username, password:credentials.password,isAdmin:'true'})
+        // }
         //needs change
         const res = await fetch("http://localhost:3000/api/acc-check", {
           method: 'POST',
