@@ -26,7 +26,7 @@ export const authOptions = {
           return ({username:credentials.username, password:credentials.password,isAdmin:'true'})
         }
         //needs change
-        const res = await fetch("http://localhost:3000/api/acc-check", {
+        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/acc-check`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }

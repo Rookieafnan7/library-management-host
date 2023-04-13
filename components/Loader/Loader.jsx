@@ -6,7 +6,7 @@ import styles from "../../src/styles/Loader.module.css"
 const Loader = () => {
   return (
     <div className={`${styles['loader']} ${styles['flex']} ${styles['flex-c']}`}>
-      <img src = {LoaderImg} alt = "loader" />
+      <img src = "/pics/loader.svg" alt = "loader" />
     </div>
   )
 }
