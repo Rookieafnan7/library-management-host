@@ -44,9 +44,9 @@ export const authOptions = {
     strategy:"jwt",
     maxAge:3000
   },
-  pages:{
-    signIn:"/login"
-  },
+  // pages:{
+  //   signIn:"/login"
+  // },
   secret:"fuNnZV2bKf61ny811iW12AajWOFNOdPw",
   callbacks: {
     async jwt({ token, user }) {
