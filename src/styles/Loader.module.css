@@ -1,0 +1,22 @@
+.loader{
+    padding: 4rem 0;
+}
+.loader img{
+    width: 120px;
+}
+.flex{
+    display: flex;
+    align-items: center;
+  }
+  .flex-column{
+    flex-direction: column;
+  }
+  .flex-sb{
+    justify-content: space-between;
+  }
+  .flex-c{
+    justify-content: center;
+  }
+  .grid{
+    display: grid;
+  }

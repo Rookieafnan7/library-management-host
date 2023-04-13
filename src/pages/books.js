@@ -13,8 +13,9 @@ export default function Books(){
     const [booksData,setBooksData] = useState([]);
     const [filters,setFilters] = useState({});
     const [status,setStatus] = useState(false);
+    const [loading,setLoading] = useState(true);
     
-    async function getBooksFromName(input = "res"){
+    async function getBooksFromName(input){
         const filter = {
             values:input,
             name:"true"
@@ -29,11 +30,12 @@ export default function Books(){
         })
         const res = await response.json();
         // await setBooksData(res);
-        console.log(res.values)
+        // console.log(res.values)
         setBooksData(res.values);
     }
     
     useEffect(()=>{
+        
         async function checkSession(){
             const sess = await getSession();
             // console.log(sess,"session");
@@ -41,6 +43,7 @@ export default function Books(){
                 router.push("/api/auth/signin");
                 // console.log(status,"status")
             }else{
+                // console.log(sess);
                 setStatus(true);
             }
         }
@@ -59,6 +62,7 @@ export default function Books(){
             // console.log(res.values);
             if(res.values){
                 setBooksData(res.values);
+                setLoading(false);
             }else{
                 console.log("reloading");
             }
@@ -69,7 +73,7 @@ export default function Books(){
     },[]);
     
         if(status){
-            return <Sidebar title="Books" DATA={booksData} type="books" searchHandler={getBooksFromName}/>
+            return <Sidebar  DATA={booksData} type="books" searchHandler={getBooksFromName} search={true} loading={loading}/>
         }else{
             return null;
         }

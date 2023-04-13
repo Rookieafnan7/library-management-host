@@ -42,7 +42,7 @@ export default function Sign() {
   return (
     <div className='App'>
         <section>
-            {errorFlagStatus?<ErrorAlert/>:null}
+            {errorFlagStatus?<ErrorAlert closeHandle={setErrorFlagStatus}/>:null}
             <div className={styles.signup}>
                 <div className={`${styles.sect1}`}>
                     <h2>Sign Up</h2>

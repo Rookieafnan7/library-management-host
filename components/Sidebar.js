@@ -8,7 +8,10 @@ import SidebarButton from './SidebarButton';
 import { useState } from "react"
 import BookTable from "./BookTable";
 import { Button } from '@mui/material';
-
+import SearchBar from './SearchBar';
+import CopyTableIssue from './CopyTableIssue';
+import BookList from './BookList/BookList';
+import AddBook from '../components/AddBook';
 export default function Sidebar(props) {
   // console.log(props);
    const [toggleStatus,setToggleStatus] = useState(false);
@@ -32,53 +35,54 @@ export default function Sidebar(props) {
       <ul>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/1.png" name="NADA-LIBRARY"/>
+          <SidebarButton styles={styles} iconRef="/pics/1.png" name="NADA-LIBRARY"/>
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/2.png" name="DASHBOARD"/>
+          <SidebarButton styles={styles} iconRef="/pics/2.png" name="DASHBOARD"/>
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/3.png" name="LOGIN"/>
+          <SidebarButton styles={styles} iconRef="/pics/3.png" name="LOGIN"/>
         </li> 
         
         <li>
         
-          <SidebarButton styles={styles} iconRef="pics/4.png" name="PEOPLE"/>
+          <SidebarButton styles={styles} iconRef="/pics/4.png" name="PEOPLE"/>
         </li>
         <li>
         
-          <SidebarButton styles={styles} iconRef="pics/5.png" name="BOOKS" href="/books"/>
+          <SidebarButton styles={styles} iconRef="/pics/5.png" name="BOOKS" href="/books"/>
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/6.png" name="ISSUE BOOK"/>
+          <SidebarButton styles={styles} iconRef="/pics/6.png" name="ISSUE BOOK"/>
         </li>
         <li>
          
-          <SidebarButton styles={styles} iconRef="pics/7.png" name="RETURN BOOK"/>
+          <SidebarButton styles={styles} iconRef="/pics/7.png" name="RETURN BOOK"/>
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/8.png" name="ADD BOOK"/>
+          <SidebarButton styles={styles} iconRef="/pics/8.png" name="ADD BOOK"/>
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/9.png" name="REMOVE BOOK"/>
+          <SidebarButton styles={styles} iconRef="/pics/9.png" name="REMOVE BOOK"/>
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="pics/10.png" name="SETTINGS"/>
+          <SidebarButton styles={styles} iconRef="/pics/10.png" name="SETTINGS"/>
         </li>
       </ul>
     </div>
     <div className={mainClassName}>
       <div className={styles.topbar}>
         <div className={toggleClassName} onClick={() => {toggle()}}>
-          <img src="pics/12.png" alt="menu" />
+          <img src="/pics/12.png" alt="menu" />
         </div>
-        <div className={styles.search}>
+
+        {/* <div className={styles.search}>
           <label>
             <img src="pics/11.png" alt="search" />
             <input type="text" placeholder="Search here" onKeyDown={(event)=>{
@@ -90,10 +94,13 @@ export default function Sidebar(props) {
             }}/>
             
           </label>
-          {/* <Button onClick={props.searchHandler}/> */}
-        </div>
+          
+        </div> */}
+
+        {props.search ? <SearchBar searchHandler = {props.searchHandler} controlFunction={setSearchInput} controlValue = {searchInput}/> : null}
+
         <div className={styles.user}>
-        <img  src="pics/13.png" alt="user" onClick={()=>{
+        <img  src="/pics/13.png" alt="user" onClick={()=>{
             setProfileDisplay((prev)=>{
                 return {
                     display:!prev.display,
@@ -113,11 +120,14 @@ export default function Sidebar(props) {
           }} style={{cursor:"pointer"}}> Sign Out</a>
         </div>
       </div>
-      <h1 className={styles.pagetitle}>{props.title}</h1>
+      {/* <h1 className={styles.pagetitle}>{props.title}</h1> */}
+      {props.DATA && props.type === "books" ? <BookList DATA={props.DATA} loading={props.loading} searchInput={searchInput}/>:null}
+      {props.type==="add-book"?<AddBook/>:null }
       <div className={styles.tables}>
       
-      {props.DATA && props.type==="books"?<BookTable DATA={props.DATA}/>:null}
-      
+      {/* {props.DATA && props.type==="books"?<BookTable DATA={props.DATA}/>:null} */}
+               
+      {props.DATA && props.type==="book-copy" ? <CopyTableIssue DATA={props.DATA}/>:null}
       </div>
     </div>
 

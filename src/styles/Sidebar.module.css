@@ -204,14 +204,14 @@
     width:100px;
     height:10%;
     right: 1%;
-    top:1%;
+    top:0
  }
  .div1{
   position: absolute;
   transition: 0.5s;
   overflow: hidden;
   right: 2%;
-  top:8%;
+  top:50px;
   
   z-index: 100;
   background-color: lightblue;
