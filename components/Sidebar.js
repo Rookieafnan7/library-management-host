@@ -64,7 +64,7 @@ export default function Sidebar(props) {
         </li>
         <li>
           
-          <SidebarButton styles={styles} iconRef="/pics/8.png" name="ADD BOOK"/>
+          <SidebarButton styles={styles} iconRef="/pics/8.png" name="ADD BOOK" href="/add-book" />
         </li>
         <li>
           
@@ -122,7 +122,7 @@ export default function Sidebar(props) {
       </div>
       {/* <h1 className={styles.pagetitle}>{props.title}</h1> */}
       {props.DATA && props.type === "books" ? <BookList DATA={props.DATA} loading={props.loading} searchInput={searchInput}/>:null}
-      {props.type==="add-book"?<AddBook/>:null }
+      {props.type === "add-book"?<AddBook/>:null }
       <div className={styles.tables}>
       
       {/* {props.DATA && props.type==="books"?<BookTable DATA={props.DATA}/>:null} */}

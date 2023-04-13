@@ -11,9 +11,9 @@ export default function AddBook() {
   const [publisher,setPublisher] = useState("");
   const [image,setImage]  = useState("");
   const [author,setAuthor] = useState("");
-  const [status,setStatus] = useState(false);
+
   const [errorFlagStatus,setErrorFlagStatus] = useState(false);
-  
+
   async function sendData(){
     if(name!==""&&publisher!==""&&image!==""&&author!==""){
       setErrorFlagStatus(true);
@@ -48,7 +48,7 @@ export default function AddBook() {
     } 
     
   }
-  if(!status)return null
+  
   return (
     <div className={`${styles["lg-container"]}`}>
   <div className={`${styles['container']}`}>

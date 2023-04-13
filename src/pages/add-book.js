@@ -7,24 +7,33 @@ import { useRouter } from "next/router";
 export default function AddBook(){
     const router = useRouter();
     const [isAdmin,setIsAdmin] = useState(false);
+    const [loading,setLoading] = useState(true);
     useEffect(()=>{
         async function checkSession(){
           
           const sess = await getSession();
-          // console.log(sess,"session");
+        //   console.log(sess.user.isAdmin,"session");
           if(sess === null){
               await router.push("/api/auth/signin");
               // console.log(status,"status")
           }else{
               if(sess.user.isAdmin === 'true')
-              setIsAdmin(true);
+              {
+                setIsAdmin(true);
+                setLoading(false);   
+                // console.log(loading,isAdmin) 
+              }
+              setLoading(false);
+            //   console.log(loading,isAdmin) 
           }
         }
         checkSession();
-      })
+      },[router])
       
-
-    if(isAdmin){
-        return <Sidebar type="add-book"/>
-    }else return (<h1>Only Admins can access this page</h1>);
+      return(
+        <>
+        { !loading ? (isAdmin?<Sidebar type="add-book"/>:"Admin Only Page") : "Loading"}
+      </>
+      )
+    
 }

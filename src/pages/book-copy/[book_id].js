@@ -8,16 +8,20 @@ export default function BookCopy(){
     const {book_id} = router.query;
     const [copyData,setCopyData] = useState([])
     const [status,setStatus] = useState(false);
+    const [loading,setLoading] = useState(true);
     useEffect(()=>{
+        
         async function checkSession(){
             const sess = await getSession();
             // console.log(sess,"session");
             if(sess === null){
                 router.push("/api/auth/signin");
                 // console.log(status,"status")
+                
             }else{
                 // console.log(sess);
                 setStatus(true);
+                // setLoading(false);
             }
         }
 
@@ -26,16 +30,28 @@ export default function BookCopy(){
             
             const response = await fetch(apiUrlEndpoint);
             const res = await response.json();
-            // console.log(res,"res");
-            await setCopyData(res.values);
+            console.log(res,"res");
+            if(res.values){
+                console.log()
+                await setCopyData(res.values);
+                setLoading(false);
+            }else{
+                console.log("loading");
+            }
         }
         checkSession();
         getCopyData();
     },[status])
 
-    if(status && copyData.length!=0){
-        return <Sidebar title={`${copyData[0].name} by ${copyData[0].author}`} DATA={copyData} type="book-copy" search={false}/>
-    }else{
-        return null;
-    }
+    // if(status && copyData){
+    //     if(copyData.length!=0)
+    //     return <Sidebar DATA={copyData} type="book-copy" search={false}/>
+    // }else{
+    //     return null;
+    // }
+    return(
+        <>
+        {loading?"Loading":<Sidebar DATA={copyData} type="book-copy" search={false}/>}
+        </>
+    )
 }

@@ -62,11 +62,7 @@ export default function CopyTableIssue(props) {
         </TableHead>
         <TableBody>
           {props.DATA.map((row) => (
-            <TableRow
-            onClick={()=>{router.push(`/book-copy/${row.book_id}`)}}
-              key={row.book_id}
-              sx={{fontSize:20}}
-            >
+            <TableRow key={row.copy_id} sx={{fontSize:20}}>
               <TableCell sx={{fontSize:18}} align='center'>
                 {row.book_id}
               </TableCell>
