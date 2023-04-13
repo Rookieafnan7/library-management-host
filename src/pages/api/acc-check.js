@@ -22,12 +22,12 @@ export default async function accCheck(req,res){
         // accDetail.accessToken = 
         
         if(accDetail.password === credentials.password){
-            await signAccessToken(accDetail).then((value)=>{
-                // console.log(value);
-                accessToken = value;
-            })
-            // let sessionObject
-            accDetail.accessToken = accessToken;
+            // await signAccessToken(accDetail).then((value)=>{
+            //     // console.log(value);
+            //     accessToken = value;
+            // })
+            // // let sessionObject
+            // accDetail.accessToken = accessToken;
             
             // delete accDetail[password];
             // accDetail[password] = '';
