@@ -1,19 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useRouter } from "next/router";
-import Sidebar from "../../../components/Sidebar";
-import { useEffect, useState } from "react";
+import { useState,useEffect } from "react";
 import { getSession } from "next-auth/react";
-export default function BookCopy(){
+import Sidebar from "../../components/Sidebar";
+import { useRouter } from "next/router";
+export default function PendingReturns(){
     const router = useRouter();
-    const {book_id} = router.query;
     const [copyData,setCopyData] = useState([])
-    const [status,setStatus] = useState(false);
     const [loading,setLoading] = useState(true);
+    const [status,setStatus] = useState(false);
     const [isAdmin,setIsAdmin] = useState(false);
     useEffect(()=>{
-        
         async function checkSession(){
-          
+        
             const sess = await getSession();
           //   console.log(sess.user.isAdmin,"session");
             if(sess === null){
@@ -31,35 +29,39 @@ export default function BookCopy(){
               //   console.log(loading,isAdmin) 
             }
           }
-
         async function getCopyData(){
-            const apiUrlEndpoint = `/api/get-copy-data/${book_id}`
-            
-            const response = await fetch(apiUrlEndpoint);
-            const res = await response.json();
-            console.log(res,"res");
-            if(res.values){
-                if(res.values.length>0){
-                    await setCopyData(res.values);
+            try{
+                const response = await fetch("/api/get-issued-books");
+                const res = await response.json();
+
+                if(res.status){
+                    setCopyData(res.values);
                     setLoading(false);
+                    // console.log(copyData,status)
+                }else{
+                    throw Error("Error while fetch");
                 }
-            }else{
-                console.log("loading");
+            }catch(err){
+                console.log(err);
             }
         }
         checkSession();
         getCopyData();
-    },[status])
-
-    // if(status && copyData){
-    //     if(copyData.length!=0)
-    //     return <Sidebar DATA={copyData} type="book-copy" search={false}/>
+        
+    },[])
+    // if(status){
+    //     copyData.length>0?<Sidebar DATA={copyData} type="pending-returns" search={false} loading={loading}/>:"No Pending Book Returns";
     // }else{
     //     return null;
     // }
+
+    if(!status){
+        return null
+    }
     return(
         <>
-        {loading?"Loading":<Sidebar DATA={copyData} type="book-copy" search={false} setLoading={setLoading} isAdmin={isAdmin}/>}
+        {/* {!loading?console.log(copyData):null} */}
+        {!loading ? (copyData?<Sidebar DATA={copyData} type="pending-returns" search={false} loading={loading} isAdmin={isAdmin}/>:<h1>No Pending Book Returns</h1>):null}
         </>
     )
 }

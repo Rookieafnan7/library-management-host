@@ -11,6 +11,7 @@ export default async function accCheck(req,res){
             await accInsertLib(query,values);
             res.status(200).send({status:true});
         }else{
+            console.log("Error thrown")
             throw Error('values not recieved');
         }
 

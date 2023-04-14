@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../src/styles/App.module.css'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 export default function Login() {
 	const [username,setUsername] = useState('');
 	const [password,setPassword] = useState('')
@@ -34,6 +35,7 @@ export default function Login() {
 						})
 					}}>Proceed</button>
 				</form>
+				<Link href='/signup'><div >New Here? Signup by Clicking This!</div></Link>
 			</div>
 			<div className={styles.sect2}>
 			<img src = 'https://raw.githubusercontent.com/akashyap2013/React_Form_Hook_Registration_Form/master/src/assets/img1.jpg' alt='lala' />
