@@ -12,6 +12,7 @@ import SearchBar from './SearchBar';
 import CopyTableIssue from './CopyTableIssue';
 import BookList from './BookList/BookList';
 import AddBook from '../components/AddBook';
+import PendingReturnsTable from './PendingReturnsTable';
 export default function Sidebar(props) {
   // console.log(props);
    const [toggleStatus,setToggleStatus] = useState(false);
@@ -41,39 +42,38 @@ export default function Sidebar(props) {
           
           <SidebarButton styles={styles} iconRef="/pics/2.png" name="DASHBOARD"/>
         </li>
-        <li>
+        {/* <li>
           
           <SidebarButton styles={styles} iconRef="/pics/3.png" name="LOGIN"/>
-        </li> 
+        </li>  */}
         
-        <li>
+        {/* <li>
         
           <SidebarButton styles={styles} iconRef="/pics/4.png" name="PEOPLE"/>
-        </li>
+        </li> */}
+        {props.isAdmin?<li>
+        <SidebarButton styles={styles} iconRef="/pics/4.png" name="PEOPLE"/>
+      </li>:null}
         <li>
         
           <SidebarButton styles={styles} iconRef="/pics/5.png" name="BOOKS" href="/books"/>
         </li>
-        <li>
-          
+        {/* <li>
+  
           <SidebarButton styles={styles} iconRef="/pics/6.png" name="ISSUE BOOK"/>
-        </li>
-        <li>
-         
-          <SidebarButton styles={styles} iconRef="/pics/7.png" name="RETURN BOOK"/>
-        </li>
-        <li>
-          
+        </li> */}
+        {props.isAdmin?<li>
+         <SidebarButton styles={styles} iconRef="/pics/7.png" name="RETURN BOOK" href="/issued-books"/>
+       </li>:null}
+       {props.isAdmin?<li>
           <SidebarButton styles={styles} iconRef="/pics/8.png" name="ADD BOOK" href="/add-book" />
-        </li>
-        <li>
-          
+        </li>:null}
+        {/* <li>
           <SidebarButton styles={styles} iconRef="/pics/9.png" name="REMOVE BOOK"/>
-        </li>
-        <li>
-          
+        </li> */}
+        {/* <li>
           <SidebarButton styles={styles} iconRef="/pics/10.png" name="SETTINGS"/>
-        </li>
+        </li> */}
       </ul>
     </div>
     <div className={mainClassName}>
@@ -126,7 +126,7 @@ export default function Sidebar(props) {
       <div className={styles.tables}>
       
       {/* {props.DATA && props.type==="books"?<BookTable DATA={props.DATA}/>:null} */}
-               
+      {props.type === "pending-returns" && props.DATA ? <PendingReturnsTable DATA={props.DATA} />:null }               
       {props.DATA && props.type==="book-copy" ? <CopyTableIssue DATA={props.DATA}/>:null}
       </div>
     </div>

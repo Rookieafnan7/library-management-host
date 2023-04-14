@@ -7,9 +7,10 @@ import Sidebar from "../../components/Sidebar";
 // import {COLUMNS} from "../../column-format/columns-book";
 export default function Books(){
     // console.log(COLUMNS);
+    const [isAdmin,setIsAdmin] = useState(false);
     const router = useRouter();
     // const { data: session, status } = useSession({required:true})
-
+    // const router = useRouter();
     const [booksData,setBooksData] = useState([]);
     const [filters,setFilters] = useState({});
     const [status,setStatus] = useState(false);
@@ -37,16 +38,24 @@ export default function Books(){
     useEffect(()=>{
         
         async function checkSession(){
+          
             const sess = await getSession();
-            // console.log(sess,"session");
+          //   console.log(sess.user.isAdmin,"session");
             if(sess === null){
-                router.push("/api/auth/signin");
+                await router.push("/api/auth/signin");
                 // console.log(status,"status")
             }else{
-                // console.log(sess);
+                if(sess.user.isAdmin === 'true')
+                {
+                  setIsAdmin(true);
+                  setLoading(false);   
+                  // console.log(loading,isAdmin) 
+                }
                 setStatus(true);
+                setLoading(false);
+              //   console.log(loading,isAdmin) 
             }
-        }
+          }
         async function getAllBooks(){
             
             const apiUrlEndpoint = "/api/get-book/overall";
@@ -73,7 +82,7 @@ export default function Books(){
     },[]);
     
         if(status){
-            return <Sidebar  DATA={booksData} type="books" searchHandler={getBooksFromName} search={true} loading={loading}/>
+            return <Sidebar  DATA={booksData} type="books" searchHandler={getBooksFromName} search={true} loading={loading} isAdmin={isAdmin}/>
         }else{
             return null;
         }

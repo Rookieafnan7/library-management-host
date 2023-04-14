@@ -32,7 +32,7 @@ export default function AddBook(){
       
       return(
         <>
-        { !loading ? (isAdmin?<Sidebar type="add-book"/>:"Admin Only Page") : "Loading"}
+        { !loading ? (isAdmin?<Sidebar type="add-book" adminCheck={false} isAdmin={isAdmin}/>:"Admin Only Page") : "Loading"}
       </>
       )
     
