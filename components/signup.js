@@ -5,7 +5,7 @@ import styles from '../styles/App.module.css'
 import ErrorAlert from '../../components/ErrorAlert';
 import SuccessAlert from '../../components/SuccessAlert';
 export default function Sign() {
-    const [errorFlagStatus,setErrorFlagStatus] = useState(false);
+    const [errorFlagStatus,setErrorFlagStatus] = useState();
     const [username,setUsername] = useState('');
 	const [password,setPassword] = useState('');
     const [email,setEmail] = useState('')
@@ -36,14 +36,14 @@ export default function Sign() {
         if(!res.status){
             throw Error("Something went wrong!");
         }else{
-            // console.log("Successful");
+            console.log("Successful");
             setSuccess(true);
         }
         }catch(err){
-            // console.log(err,"err");
+            console.log(err,"err");
             // console.log(err,"signup");
             setErrorFlagStatus(true);
-            // console.log(errorFlagStatus);
+            console.log(errorFlagStatus);
         }
         // console.log(results);
     }
