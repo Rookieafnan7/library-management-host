@@ -3,13 +3,15 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import styles from '../styles/App.module.css'
 import ErrorAlert from '../../components/ErrorAlert';
+import SuccessAlert from '../../components/SuccessAlert';
 export default function Sign() {
-    const [errorFlagStatus,setErrorFlagStatus] = useState(false);
+    const [errorFlagStatus,setErrorFlagStatus] = useState();
     const [username,setUsername] = useState('');
 	const [password,setPassword] = useState('');
     const [email,setEmail] = useState('')
     const [phone_number,setPhone_number] = useState('')
     const [name,setName] = useState('')
+    const [success,setSuccess] = useState(false);
     async function handleClick(e){
         e.preventDefault();
         // console.log("clicked");
@@ -34,13 +36,14 @@ export default function Sign() {
         if(!res.status){
             throw Error("Something went wrong!");
         }else{
-            console.log("Successful");
+            // console.log("Successful");
+            setSuccess(true);
         }
         }catch(err){
-            console.log(err,"err");
+            // console.log(err,"err");
             // console.log(err,"signup");
             setErrorFlagStatus(true);
-            console.log(errorFlagStatus);
+            // console.log(errorFlagStatus);
         }
         // console.log(results);
     }
@@ -48,6 +51,7 @@ export default function Sign() {
     <div className='App'>
         <section>
             {errorFlagStatus?<ErrorAlert closeHandle={setErrorFlagStatus}/>:null}
+            {success?<SuccessAlert/>:null}
             <div className={styles.signup}>
                 <div className={`${styles.sect1}`}>
                     <h2>Sign Up</h2>
