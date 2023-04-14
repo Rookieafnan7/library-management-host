@@ -22,17 +22,22 @@ export default function Sign() {
         }
         const apiUrlEndpoint = "/api/acc-insert"
         try{
-         const err = await fetch(apiUrlEndpoint,{
+         const response = await fetch(apiUrlEndpoint,{
             method:'POST',
             headers:{
                 "Content-type":"application/json"
             },
             body:JSON.stringify(data)
         })
-        if(err){
+        const res = await response.json();
+        // console.log(res,"res");
+        if(!res.status){
             throw Error("Something went wrong!");
+        }else{
+            console.log("Successful");
         }
         }catch(err){
+            console.log(err,"err");
             // console.log(err,"signup");
             setErrorFlagStatus(true);
             console.log(errorFlagStatus);

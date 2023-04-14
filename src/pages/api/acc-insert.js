@@ -9,13 +9,13 @@ export default async function accCheck(req,res){
             let values = [data.phone_number,data.email,data.password,data.name,data.username];
         
             await accInsertLib(query,values);
-            res.status(200).send("Successful");
+            res.status(200).send({status:true});
         }else{
             throw Error('values not recieved');
         }
 
     }catch(err){
         // console.log(err,"error");
-        res.status(500).json(err);
+        res.status(200).send({status:false});
     }
 }
